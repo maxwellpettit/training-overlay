@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, Inject } from '@angular/core';
 import { Panel } from '../dashboard-panel/panel';
 import { MatDialog } from '@angular/material/dialog';
 import { TrainingDialogComponent } from '../training-dialog/training-dialog.component';
 import { MatCard } from '@angular/material';
+import { DOCUMENT } from '@angular/common';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -20,20 +22,24 @@ export class DashboardComponent implements OnInit {
 
   title = 'Training Overlay';
 
-  // Find the #trainingCard (i.e. the component to display in the dialog)
-  @ViewChild('trainingCard') trainingCard: MatCard;
-
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private resolver: ComponentFactoryResolver,
+    private injector: Injector,
+    @Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit() {
   }
 
   onTraining() {
-    // Pass in trainingCard to the dialog
     console.log('Training Clicked');
-    this.dialog.open(TrainingDialogComponent, {
-      data: this.trainingCard
-    });
+
+    const screenFactory = this.resolver.resolveComponentFactory(MatCard);
+    const screenViewRef = screenFactory.create(this.injector);
+
+    const dialogScreenFactory = this.resolver.resolveComponentFactory(TrainingDialogComponent);
+    const contentSelectors = dialogScreenFactory.ngContentSelectors;
+    const ngContent = contentSelectors.map(selector => [screenViewRef.location.nativeElement.querySelector(selector)]);
+
+    console.log(ngContent);
   }
 
 }

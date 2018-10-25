@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatCardModule, MatGridListModule, MatToolbarModule } from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatCardModule, MatGridListModule, MatToolbarModule, MatCard } from '@angular/material';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
@@ -34,6 +34,6 @@ import { TrainingDirective } from './training.directive';
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true}}
   ],
   bootstrap: [AppComponent],
-  entryComponents: [TrainingDialogComponent]
+  entryComponents: [TrainingDialogComponent, MatCard]
 })
 export class AppModule { }
