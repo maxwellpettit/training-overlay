@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, Injec
 import { Panel } from '../dashboard-panel/panel';
 import { MatDialog } from '@angular/material/dialog';
 import { TrainingDialogComponent } from '../training-dialog/training-dialog.component';
-import { MatCard } from '@angular/material';
 import { DOCUMENT } from '@angular/common';
 
 
@@ -34,6 +33,8 @@ export class DashboardComponent implements OnInit {
   onTraining() {
     console.log('Training Clicked');
     const dialogScreenFactory = this.resolver.resolveComponentFactory(TrainingDialogComponent);
+
+    /*
     const contentSelectors = dialogScreenFactory.ngContentSelectors;
     const ngContent = contentSelectors.map(selector => [this.trainingCard.nativeElement.querySelector(selector)]);
 
@@ -42,8 +43,13 @@ export class DashboardComponent implements OnInit {
         console.log(col);
       }
     }
+    */
 
-    const dialogRef = dialogScreenFactory.create(this.injector, ngContent);
+    const dialogRef = dialogScreenFactory.create(this.injector, this.trainingCard.nativeElement);
+    console.log(dialogRef);
+
+    dialogRef.hostView.detectChanges();
+    this.document.body.appendChild(dialogRef.location.nativeElement);
 
     // this.dialog.open(dialogRef);
 
