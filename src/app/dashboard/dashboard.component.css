@@ -1,0 +1,8 @@
+.toolbar-title {
+    flex: 1 1 0;
+    font-size: 32px;
+}
+
+.dashboard {
+    margin: 16px; 
+}

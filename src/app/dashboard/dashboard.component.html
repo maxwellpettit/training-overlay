@@ -1,0 +1,17 @@
+<mat-toolbar class="mat-elevation-z3">
+  <span class="toolbar-title">{{title}}</span>
+  <button mat-raised-button color="primary" (click)="onTraining()">Show Training</button>
+</mat-toolbar>
+
+<mat-grid-list cols="3" rowHeight="300px" class="dashboard">
+  <mat-grid-tile *ngFor="let panel of panels">
+    <mat-grid-tile-header> {{panel.title}} </mat-grid-tile-header>
+    <mat-card> {{panel.text}} </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <mat-grid-tile-header> Training Tile </mat-grid-tile-header>
+    <mat-card #trainingCard>
+      <button mat-raised-button color="primary">Training Button</button>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
