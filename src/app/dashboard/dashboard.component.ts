@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, Inject, ComponentRef, ElementRef } from '@angular/core';
 import { Panel } from '../dashboard-panel/panel';
 import { MatDialog } from '@angular/material/dialog';
 import { TrainingDialogComponent } from '../training-dialog/training-dialog.component';
@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
 
   title = 'Training Overlay';
 
+  @ViewChild('trainingCard', {read: ElementRef}) trainingCard: ElementRef;
+
   constructor(private dialog: MatDialog, private resolver: ComponentFactoryResolver,
     private injector: Injector,
     @Inject(DOCUMENT) private document: Document) { }
@@ -31,15 +33,20 @@ export class DashboardComponent implements OnInit {
 
   onTraining() {
     console.log('Training Clicked');
-
-    const screenFactory = this.resolver.resolveComponentFactory(MatCard);
-    const screenViewRef = screenFactory.create(this.injector);
-
     const dialogScreenFactory = this.resolver.resolveComponentFactory(TrainingDialogComponent);
     const contentSelectors = dialogScreenFactory.ngContentSelectors;
-    const ngContent = contentSelectors.map(selector => [screenViewRef.location.nativeElement.querySelector(selector)]);
+    const ngContent = contentSelectors.map(selector => [this.trainingCard.nativeElement.querySelector(selector)]);
 
-    console.log(ngContent);
+    for (const row of ngContent) {
+      for (const col of row) {
+        console.log(col);
+      }
+    }
+
+    const dialogRef = dialogScreenFactory.create(this.injector, ngContent);
+
+    // this.dialog.open(dialogRef);
+
   }
 
 }
