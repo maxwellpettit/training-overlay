@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
 
   onTraining() {
     // Open a dialog with the template ref embedded
-    this.trainingService.open(this.templateRef);
+    this.trainingService.open(this.templateRef, 'These are instructions on how to use this component');
   }
 
   onClick() {
