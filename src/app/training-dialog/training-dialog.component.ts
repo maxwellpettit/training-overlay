@@ -1,21 +1,21 @@
-import { Component, OnInit, Inject, ViewChild, ComponentFactoryResolver, ViewContainerRef, Injector } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { TrainingDirective } from '../training.directive';
-import { MatCard } from '@angular/material';
+import { Component, OnInit, Inject, TemplateRef } from '@angular/core';
+import { TrainingOverlayRef } from '../training-overlay/training-overlay-ref';
+import { CONTAINER_DATA } from '../training-overlay/training-token';
 
 @Component({
   selector: 'app-training-dialog',
   templateUrl: './training-dialog.component.html',
-  styleUrls: ['./training-dialog.component.css']
+  styleUrls: ['./training-dialog.component.scss']
 })
 export class TrainingDialogComponent implements OnInit {
 
-  @ViewChild(TrainingDirective) host: TrainingDirective;
+  templateRef: TemplateRef<any>;
 
-  constructor() { }
+  constructor(public dialogRef: TrainingOverlayRef, @Inject(CONTAINER_DATA) public data) { }
 
   ngOnInit() {
-    // Display the component passed into the dialog data
+    // Display the component/templateRef passed into data
+    this.templateRef = this.data;
   }
 
 }

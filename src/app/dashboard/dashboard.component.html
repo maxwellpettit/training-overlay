@@ -1,17 +1,26 @@
-<mat-toolbar class="mat-elevation-z3">
-  <span class="toolbar-title">{{title}}</span>
-  <button mat-raised-button color="primary" (click)="onTraining()">Show Training</button>
-</mat-toolbar>
+<div class="main-background">
+  <mat-toolbar class="mat-elevation-z3">
+    <span class="toolbar-title">{{title}}</span>
+    <button mat-raised-button color="primary" (click)="onTraining()">Show Training</button>
+  </mat-toolbar>
 
-<mat-grid-list cols="3" rowHeight="300px" class="dashboard">
-  <mat-grid-tile *ngFor="let panel of panels">
-    <mat-grid-tile-header> {{panel.title}} </mat-grid-tile-header>
-    <mat-card> {{panel.text}} </mat-card>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-grid-tile-header> Training Tile </mat-grid-tile-header>
-    <mat-card class="training-card" #trainingCard>
-      <button mat-raised-button color="primary">Training Button</button>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+  <div class="dashboard">
+    <ng-template #trainingTemplate>
+      <mat-card class="training-element">
+        <mat-card-title> Training Element </mat-card-title>
+        <mat-card-content>
+          <div>This is a Training Element</div>
+        </mat-card-content>
+        <button mat-raised-button color="primary" (click)="onClick()">Training Button</button>
+      </mat-card>
+    </ng-template>
+    <ng-template [ngTemplateOutlet]="templateRef"></ng-template>
+
+    <mat-grid-list cols="3" rowHeight="300px" class="grid-list">
+      <mat-grid-tile *ngFor="let panel of panels">
+        <mat-grid-tile-header> {{panel.title}} </mat-grid-tile-header>
+        <mat-card> {{panel.text}} </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

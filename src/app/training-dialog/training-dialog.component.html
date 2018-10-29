@@ -1,2 +1,7 @@
-<h1 mat-dialog-title>Training</h1>
-<ng-content select="training-card"></ng-content>
+<mat-card class="training-dialog">
+    <mat-card-title>Training</mat-card-title>
+    <mat-card-content>
+        <div> These are instructions on how to use this component </div>
+    </mat-card-content>
+    <ng-template [ngTemplateOutlet]="templateRef"></ng-template>
+</mat-card>

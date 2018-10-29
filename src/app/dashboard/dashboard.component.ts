@@ -1,14 +1,12 @@
-import { Component, OnInit, ViewChild, ComponentFactoryResolver, Injector, Inject, ComponentRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
 import { Panel } from '../dashboard-panel/panel';
-import { MatDialog } from '@angular/material/dialog';
-import { TrainingDialogComponent } from '../training-dialog/training-dialog.component';
-import { DOCUMENT } from '@angular/common';
+import { TrainingOverlayService } from '../training-overlay/training-overlay.service';
 
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
 
@@ -16,43 +14,24 @@ export class DashboardComponent implements OnInit {
     { title: 'Panel 1', text: 'Panel 1 Text' },
     { title: 'Panel 2', text: 'Panel 2 Text' },
     { title: 'Panel 3', text: 'Panel 3 Text' },
-    { title: 'Panel 4', text: 'Panel 4 Text' }
   ];
 
   title = 'Training Overlay';
 
-  @ViewChild('trainingCard', {read: ElementRef}) trainingCard: ElementRef;
+  @ViewChild('trainingTemplate', { read: TemplateRef }) templateRef: TemplateRef<any>;
 
-  constructor(private dialog: MatDialog, private resolver: ComponentFactoryResolver,
-    private injector: Injector,
-    @Inject(DOCUMENT) private document: Document) { }
+  constructor(private trainingService: TrainingOverlayService) { }
 
   ngOnInit() {
   }
 
   onTraining() {
-    console.log('Training Clicked');
-    const dialogScreenFactory = this.resolver.resolveComponentFactory(TrainingDialogComponent);
+    // Open a dialog with the template ref embedded
+    this.trainingService.open(this.templateRef);
+  }
 
-    /*
-    const contentSelectors = dialogScreenFactory.ngContentSelectors;
-    const ngContent = contentSelectors.map(selector => [this.trainingCard.nativeElement.querySelector(selector)]);
-
-    for (const row of ngContent) {
-      for (const col of row) {
-        console.log(col);
-      }
-    }
-    */
-
-    const dialogRef = dialogScreenFactory.create(this.injector, this.trainingCard.nativeElement);
-    console.log(dialogRef);
-
-    dialogRef.hostView.detectChanges();
-    this.document.body.appendChild(dialogRef.location.nativeElement);
-
-    // this.dialog.open(dialogRef);
-
+  onClick() {
+    console.log('Clicked!');
   }
 
 }
