@@ -1,7 +1,7 @@
 <mat-card class="training-dialog">
     <mat-card-title class="training-title">Training</mat-card-title>
     <mat-card-content fxLayout="row" fxLayoutGap="32px">
-        <div fxFlex="1 1 auto" *ngFor="let id of getKeys(templateMap)">
+        <div fxFlex="1 1 auto" *ngFor="let id of getKeys()">
             <div class="training-instructions"> {{instructionsMap.get(id)}} </div>
             <div>
                 <ng-template [ngTemplateOutlet]="templateMap.get(id)"></ng-template>

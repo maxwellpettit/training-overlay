@@ -22,8 +22,8 @@ export class TrainingDialogComponent implements OnInit {
     this.instructionsMap = this.instructionsData;
   }
 
-  getKeys(map: Map<any, any>) {
-    return Array.from(map.keys());
+  getKeys() {
+    return Array.from(this.templateMap.keys());
   }
 
   close() {
