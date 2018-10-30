@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, TemplateRef, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Panel } from '../dashboard-panel/panel';
-import { TrainingOverlayService } from '../training-overlay/training-overlay.service';
+import { TrainingElementComponent } from '../training-element/training-element.component';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { TrainingOverlayService } from '../training-overlay/training-overlay.ser
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends TrainingElementComponent {
 
   panels: Panel[] = [
     { title: 'Panel 1', text: 'Panel 1 Text' },
@@ -17,18 +17,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   title = 'Training Overlay';
-
-  @ViewChild('trainingTemplate', { read: TemplateRef }) templateRef: TemplateRef<any>;
-
-  constructor(private trainingService: TrainingOverlayService) { }
-
-  ngOnInit() {
-  }
-
-  onTraining() {
-    // Open a dialog with the template ref embedded
-    this.trainingService.open(this.templateRef, 'These are instructions on how to use this component');
-  }
+  elementText = 'This is a Training Element';
 
   onClick() {
     console.log('Clicked!');

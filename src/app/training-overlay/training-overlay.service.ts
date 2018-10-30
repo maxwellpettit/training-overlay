@@ -3,14 +3,14 @@ import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { TrainingOverlayRef } from './training-overlay-ref';
 import { TrainingDialogComponent } from '../training-dialog/training-dialog.component';
-import { TEMPLATE_DATA, TRAINING_DATA } from './training-token';
+import { TEMPLATE_DATA, INSTRUCTIONS_DATA } from './training-token';
 
 @Injectable()
 export class TrainingOverlayService {
 
   constructor(public injector: Injector, private overlay: Overlay) { }
 
-  open(templateRef: TemplateRef<any>, instructions: string) {
+  open(templateMap: Map<string, TemplateRef<any>>, instructionsMap: Map<string, string>) {
     // Returns an OverlayRef which is a PortalHost
     const overlayRef = this.createOverlay();
 
@@ -18,7 +18,7 @@ export class TrainingOverlayService {
     const dialogRef = new TrainingOverlayRef(overlayRef);
 
     // Create and attach the dialog component
-    const overlayComponent = this.attachDialogContainer(overlayRef, dialogRef, templateRef, instructions);
+    const overlayComponent = this.attachDialogContainer(overlayRef, dialogRef, templateMap, instructionsMap);
 
     // Close dialog on backdrop click
     overlayRef.backdropClick().subscribe(_ => dialogRef.close());
@@ -32,8 +32,8 @@ export class TrainingOverlayService {
   }
 
   private attachDialogContainer(overlayRef: OverlayRef, dialogRef: TrainingOverlayRef,
-    templateRef: TemplateRef<any>, instructions: string) {
-    const portalInjector = this.createInjector(dialogRef, templateRef, instructions);
+    templateMap: Map<string, TemplateRef<any>>, instructionsMap: Map<string, string>) {
+    const portalInjector = this.createInjector(dialogRef, templateMap, instructionsMap);
 
     // Create component portal (i.e. the component to display as a dialog)
     const containerPortal = new ComponentPortal(TrainingDialogComponent, null, portalInjector);
@@ -44,17 +44,18 @@ export class TrainingOverlayService {
     return containerRef.instance;
   }
 
-  private createInjector(dialogRef: TrainingOverlayRef, templateRef: TemplateRef<any>, instructions: string): PortalInjector {
+  private createInjector(dialogRef: TrainingOverlayRef,
+    templateMap: Map<string, TemplateRef<any>>, instructionsMap: Map<string, string>): PortalInjector {
     const injectionTokens = new WeakMap();
 
     // Pass the dialogRef to the TrainingDialogComponent
     injectionTokens.set(TrainingOverlayRef, dialogRef);
 
     // Pass the templateRef to the TrainingDialogComponent
-    injectionTokens.set(TEMPLATE_DATA, templateRef);
+    injectionTokens.set(TEMPLATE_DATA, templateMap);
 
     // Pass the training instructions to the TrainingDialogComponent
-    injectionTokens.set(TRAINING_DATA, instructions);
+    injectionTokens.set(INSTRUCTIONS_DATA, instructionsMap);
 
     return new PortalInjector(this.injector, injectionTokens);
   }

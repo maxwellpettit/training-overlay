@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, TemplateRef } from '@angular/core';
 import { TrainingOverlayRef } from '../training-overlay/training-overlay-ref';
-import { TEMPLATE_DATA, TRAINING_DATA } from '../training-overlay/training-token';
+import { TEMPLATE_DATA, INSTRUCTIONS_DATA } from '../training-overlay/training-token';
 
 @Component({
   selector: 'app-training-dialog',
@@ -9,17 +9,25 @@ import { TEMPLATE_DATA, TRAINING_DATA } from '../training-overlay/training-token
 })
 export class TrainingDialogComponent implements OnInit {
 
-  templateRef: TemplateRef<any>;
-  instructions: string;
+  templateMap: Map<string, TemplateRef<any>>;
+  instructionsMap: Map<string, string>;
 
   constructor(public dialogRef: TrainingOverlayRef,
     @Inject(TEMPLATE_DATA) public templateData,
-    @Inject(TRAINING_DATA) public trainingData) { }
+    @Inject(INSTRUCTIONS_DATA) public instructionsData) { }
 
   ngOnInit() {
     // Display the component/templateRef passed into data
-    this.templateRef = this.templateData;
-    this.instructions = this.trainingData;
+    this.templateMap = this.templateData;
+    this.instructionsMap = this.instructionsData;
+  }
+
+  getKeys(map: Map<any, any>) {
+    return Array.from(map.keys());
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }

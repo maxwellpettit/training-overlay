@@ -1,7 +1,14 @@
 <mat-card class="training-dialog">
-    <mat-card-title>Training</mat-card-title>
-    <mat-card-content>
-        <div> {{instructions}} </div>
+    <mat-card-title class="training-title">Training</mat-card-title>
+    <mat-card-content fxLayout="row" fxLayoutGap="32px">
+        <div fxFlex="1 1 auto" *ngFor="let id of getKeys(templateMap)">
+            <div class="training-instructions"> {{instructionsMap.get(id)}} </div>
+            <div>
+                <ng-template [ngTemplateOutlet]="templateMap.get(id)"></ng-template>
+            </div>
+        </div>
     </mat-card-content>
-    <ng-template [ngTemplateOutlet]="templateRef"></ng-template>
+    <div fxLayout="row" fxLayoutAlign="end center">
+        <button mat-raised-button color="primary" (click)="close()"> Ok </button>
+    </div>
 </mat-card>
