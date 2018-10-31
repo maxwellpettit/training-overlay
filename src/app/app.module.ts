@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatCheckboxModule, MatCardModule, MatGridListModule, MatToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCheckboxModule, MatCardModule, MatGridListModule, MatToolbarModule, MatInputModule } from '@angular/material';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import {FlexLayoutModule} from '@angular/flex-layout';
@@ -25,6 +25,7 @@ import { TrainingDirective } from './training.directive';
     MatCardModule,
     MatGridListModule,
     MatToolbarModule,
+    MatInputModule,
     OverlayModule,
     FlexLayoutModule
   ],

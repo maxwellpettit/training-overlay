@@ -35,4 +35,8 @@ export class TrainingElementComponent implements AfterViewInit {
     this.trainingService.open(this.templateMap, this.instructionsMap);
   }
 
+  getTemplate(key: string) {
+    return this.templateMap.get(key);
+  }
+
 }

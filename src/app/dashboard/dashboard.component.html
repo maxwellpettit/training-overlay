@@ -15,18 +15,22 @@
         <button mat-raised-button color="primary" (click)="onClick()">Training Button 1</button>
       </mat-card>
     </ng-template>
-    <ng-template [ngTemplateOutlet]="templateMap.get('training1')"></ng-template>
+    <ng-template [ngTemplateOutlet]="getTemplate('training1')"></ng-template>
 
     <ng-template appTraining name="training2">
       <mat-card fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" class="element-card">
         <mat-card-title> Training Element 2 </mat-card-title>
         <mat-card-content>
-          <div> {{elementText}} </div>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Training Input">
+            </mat-form-field>
+          </form>
         </mat-card-content>
-        <button mat-raised-button color="primary" (click)="onClick()">Training Button 2</button>
+        <button mat-raised-button color="warn" (click)="onClick()">Training Button 2</button>
       </mat-card>
     </ng-template>
-    <ng-template [ngTemplateOutlet]="templateMap.get('training2')"></ng-template>
+    <ng-template [ngTemplateOutlet]="getTemplate('training2')"></ng-template>
   </div>
 
   <mat-grid-list cols="3" rowHeight="300px" class="grid-list">
